@@ -1,0 +1,24 @@
+'use strict';
+
+function p(obj, str) {
+    if (typeof obj != 'object' || obj == null){
+        return {};
+    }
+
+    let map = {};
+    for (const [key, val] of Object.entries(obj)) {
+        if (typeof val == 'object'){
+            map = Object.assign(map, p(val, str + key + '.'));
+        }
+        else{
+            map[str+key] = val;
+        }
+    }
+
+    return map;
+}
+
+function plainify(obj){
+    return p(obj, '');
+}
+
